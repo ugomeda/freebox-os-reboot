@@ -14,6 +14,7 @@ APP_TOKEN = ""
 FREEBOX_IP = "212.27.38.253"
 CHECK_IPS = ["8.8.8.8", "1.1.1.1"]
 WHITELIST_IPS = [FREEBOX_IP]
+USE_HTTPS = False  # Si activé, le port HTTPs sera utilisé mais le certificat non vérifié
 
 
 class FreeboxReboot:
@@ -62,8 +63,7 @@ Vérifiez ensuite la configuration à l'aide de la commande :
             api_base_url = configuration["api_base_url"]
             port = configuration["https_port"]
             api_version = configuration["api_version"].split(".")[0]
-
-            if configuration["https_available"]:
+            if configuration["https_available"] and USE_HTTPS:
                 self._base_url = "https://{}:{}{}v{}/".format(
                     self._freebox_ip, port, api_base_url, api_version
                 )
